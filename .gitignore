@@ -1,7 +1,5 @@
 # Default ignored files
-/../../../../../../:\Users\tanvi.MSI\CLionProjects\Navigation\cmake-build-debug
-cmake-build-debug/CMakeFiles/Navigation.dir/objects.a
-cmake-build-debug/Navigation.exe
+#/../../../../../../:\Users\tanvi.MSI\CLionProjects\Navigation\cmake-build-debug
 **/cmake-build-debug/*
 cmake-build-debug/*
 cmake-build-debug\*
