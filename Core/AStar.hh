@@ -12,6 +12,7 @@ public:
     std::vector<std::vector<double>> path_;
     enum rotationalMotion_ {rotationalMovement, sinTraversalPath, None};
     AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
+    AStar(int*** map, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
     AStar(int width, int height, int depth);
     void updatePose(int startx, int starty, int startz);
     void solveGrid();
@@ -40,6 +41,7 @@ private:
     Node*** grid_;
     double*** distance_;
 
+    void makeGridFromMap(int*** map);
     void makeGrid();
     void resolveGrid();
     void makeParent(Node *node, std::string value);

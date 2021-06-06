@@ -5,6 +5,7 @@
 #include<vector>
 #include<functional>
 #include <unordered_set>
+#include <typeinfo>
 
 int main()
 {
@@ -35,6 +36,25 @@ int main()
     {
         std::cout<<path[i][0]<<' '<<path[i][1]<<' '<<path[i][2]<<std::endl;
     }
+    int map1[1][3][3] = {{{0,1,1},{0,0,0},{0,0,0}}};
+
+    int*** map= new int **[1];
+    for(int i = 0; i < 1; i++)
+    {
+        map[i] = new int*[3];
+        for(int j = 0; j < 3; j++)
+        {
+            map[i][j] = new int[3];
+            for(int k = 0; k < 3; k++)
+            {
+                map[i][j][k] = map1[i][j][k];
+            }
+        }
+    }
+    AStar* createMap = new AStar(map, 1, 3, 3, 0, 0, 0, 0, 2, 2, AStar::rotationalMotion_::None, "", 0, 5);
+    std::cout<<"hello"<<std::endl;
+
+    createMap->printGrid();
 
 
     return 0;
