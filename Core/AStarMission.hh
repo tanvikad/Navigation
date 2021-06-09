@@ -16,19 +16,22 @@ private:
     double velocity_;
     std::vector<double> pose_;
     AStar* current_;
+    int width_;
+    int height_;
+    int depth_;
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;
     std::vector<std::vector<int>> obstacles_;
 
 
-    AStarMission(std::vector<std::vector<std::string>> goals, double velocity);
+    AStarMission(std::vector<std::vector<std::string>> goals, double velocity, int width, int height, int depth);
 
     void addGoals(std::vector<std::vector<std::string>> goals);
 
     void isSucessful(bool success, std::vector<double> pose);
 
-    void recurse(std::vector<double> pose);
+    void recurse(std::vector<double> pose, double time);
 
 };
 
