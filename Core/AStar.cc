@@ -78,6 +78,30 @@ AStar::AStar(int ***map, int width, int height, int depth, int startx, int start
     makeGridFromMap(map);
 }
 
+
+AStar::AStar(std::vector<std::vector<int>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
+             AStar::rotationalMotion_ motion, std::string data, double startTime, double velocity):
+        width_(width),
+        height_(height),
+        depth_(depth),
+        prob_(0),
+        startx_(startx),
+        starty_(starty),
+        startz_(startz),
+        endx_(endx),
+        endy_(endy),
+        endz_(endz),
+        motion_(motion),
+        grid_(nullptr),
+        distance_(nullptr),
+        startTime_(startTime),
+        velocity_(velocity),
+        resolveGrid_(3)
+
+{
+    makeGridFromObstacles(obstacles);
+}
+
 AStar::AStar(int width, int height, int depth)
         : AStar(width, height, depth, 0.3, 0, 0, 0, width - 1, height - 1, depth - 1, sinTraversalPath, "", 0, 5)
 {
@@ -141,7 +165,31 @@ void AStar::makeGridFromMap(int ***map)
 
 }
 
+void AStar::makeGridFromObstacles(std::vector<std::vector<int>> obstacle)
+{
+    Node *endNode = new Node(endx_, endy_, endz_, NULL);
+    grid_ = new Node **[width_];
+    for (int i = 0; i < width_; i++)
+    {
+        grid_[i] = new Node *[height_];
+        for (int j = 0; j < height_; j++)
+        {
+            grid_[i][j] = new Node[depth_];
+            for (int k = 0; k < depth_; k++)
+            {
+                Node *node = new Node(i, j, k, endNode);
+                grid_[i][j][k] = *node;
 
+            }
+        }
+    }
+
+    for(int i = 0; i < obstacle.size(); i++)
+    {
+        grid_[obstacle[i][0]][obstacle[i][1]][obstacle[i][2]].setObstacle(true);
+    }
+    grid_[endx_][endy_][endz_] = *endNode;
+}
 
 void AStar::printGrid() const
 {

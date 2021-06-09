@@ -19,6 +19,7 @@ private:
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;
+    std::vector<std::vector<int>> obstacles_;
 
 
     AStarMission(std::vector<std::vector<std::string>> goals, double velocity);
