@@ -19,6 +19,8 @@ private:
     int width_;
     int height_;
     int depth_;
+
+    std::vector<int> getPose(std::string poseString);
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;

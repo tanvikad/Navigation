@@ -32,6 +32,38 @@ void AStarMission::isSucessful(bool success, std::vector<double> pose)
     pose_ = pose;
 }
 
+
+std::vector<int> AStarMission::getPose(std::string poseString)
+{
+    //check if it is in the map and return the vector
+    std::vector<int> pose;
+    int index = 0;
+    while(true)
+    {
+        std::cout<<"index"<<index<<std::endl;
+        size_t foundString = poseString.find(' ', index);
+        if(foundString == std::string::npos)
+        {
+            if(index <= poseString.size())
+            {
+                std::string substring = poseString.substr(index, poseString.size());
+                int elem = std::stoi(substring);
+                pose.push_back(elem);
+                std::cout<<elem<<std::endl;
+            }
+            break;
+        }
+
+        std::string substring = poseString.substr(index, foundString);
+        int elem = std::stoi(substring);
+        pose.push_back(elem);
+        std::cout<<elem<<std::endl;
+        index = foundString + 1;
+    }
+    return pose;
+}
+
+
 void AStarMission::recurse(std::vector<double> pose, double time)
 {
     //If an AStar object is created with the specific goal
@@ -41,15 +73,16 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         path_ = current_->path_;
     }else
     {
-        std::vector<double> goal;
+        if(goals_.size() == 0)
+        {
+            std::cout<<"No Mission"<<std::endl;
+            return;
+        }
+        std::string goalString = goals_[0][0];
+        std::vector<double> goal = getPose(goalString);
         current_ = new AStar(obstacles_, width_, height_, depth_, pose[0], pose[1], pose[2], goal[0], goal[1], goal[2], AStar::rotationalMotion_::None, "", time, velocity_);
         current_->solveGrid();
         path_ = current_->path_;
     }
 }
 
-
-int main()
-{
-
-}
