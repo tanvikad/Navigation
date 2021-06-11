@@ -6,6 +6,7 @@
 #include <vector>
 #include <unordered_set>
 #include <algorithm>
+#include<math.h>
 
 
 
@@ -79,7 +80,7 @@ AStar::AStar(int ***map, int width, int height, int depth, int startx, int start
 }
 
 
-AStar::AStar(std::vector<std::vector<int>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
+AStar::AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
              AStar::rotationalMotion_ motion, std::string data, double startTime, double velocity):
         width_(width),
         height_(height),
@@ -165,7 +166,7 @@ void AStar::makeGridFromMap(int ***map)
 
 }
 
-void AStar::makeGridFromObstacles(std::vector<std::vector<int>> obstacle)
+void AStar::makeGridFromObstacles(std::vector<std::vector<double>> obstacle)
 {
     Node *endNode = new Node(endx_, endy_, endz_, NULL);
     grid_ = new Node **[width_];
@@ -186,7 +187,7 @@ void AStar::makeGridFromObstacles(std::vector<std::vector<int>> obstacle)
 
     for(int i = 0; i < obstacle.size(); i++)
     {
-        grid_[obstacle[i][0]][obstacle[i][1]][obstacle[i][2]].setObstacle(true);
+        grid_[(int) round(obstacle[i][0])][(int) round(obstacle[i][1])][(int) round(obstacle[i][2])].setObstacle(true);
     }
     grid_[endx_][endy_][endz_] = *endNode;
 }

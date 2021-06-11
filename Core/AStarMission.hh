@@ -20,11 +20,11 @@ private:
     int height_;
     int depth_;
 
-    std::vector<int> getPose(std::string poseString);
+    std::vector<double> getPose(std::string poseString);
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;
-    std::vector<std::vector<int>> obstacles_;
+    std::vector<std::vector<double>> obstacles_;
 
 
     AStarMission(std::vector<std::vector<std::string>> goals, double velocity, int width, int height, int depth);

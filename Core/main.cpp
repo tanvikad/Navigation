@@ -41,8 +41,8 @@ int main()
 
 
 
-    std::vector<std::vector<int>> obstacle;
-    std::vector<int> pose1 {0,0,1};
+    std::vector<std::vector<double>> obstacle;
+    std::vector<double> pose1 {0,1,0.4};
     obstacle.push_back(pose1);
 
     AStar* createMap = new AStar(obstacle, 1, 3, 3, 0, 0, 0, 0, 2, 2, AStar::rotationalMotion_::None, "", 0, 5);

@@ -33,10 +33,10 @@ void AStarMission::isSucessful(bool success, std::vector<double> pose)
 }
 
 
-std::vector<int> AStarMission::getPose(std::string poseString)
+std::vector<double> AStarMission::getPose(std::string poseString)
 {
     //check if it is in the map and return the vector
-    std::vector<int> pose;
+    std::vector<double> pose;
     int index = 0;
     while(true)
     {

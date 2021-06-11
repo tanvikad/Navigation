@@ -13,7 +13,7 @@ public:
     enum rotationalMotion_ {rotationalMovement, sinTraversalPath, None};
     AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
     AStar(int*** map, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
-    AStar(std::vector<std::vector<int>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
+    AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
     AStar(int width, int height, int depth);
     void updatePose(int startx, int starty, int startz);
     void solveGrid();
@@ -43,7 +43,7 @@ private:
     double*** distance_;
 
     void makeGridFromMap(int*** map);
-    void makeGridFromObstacles(std::vector<std::vector<int>>);
+    void makeGridFromObstacles(std::vector<std::vector<double>>);
     void makeGrid();
 
     void resolveGrid();
