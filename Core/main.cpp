@@ -56,7 +56,7 @@ int main()
     std::vector<std::vector<std::string>> goals;
     goals.push_back(goal1);
     goals.push_back(goal2);
-    AStarMission* mission = new AStarMission();
+    AStarMission* mission = new AStarMission(goals, 5, 1, 10,10);
 
     std::vector<double> obstacle1 = {0, 5, 5, 0.1, 0.1, 0};
     std::vector<double> obstacle2 = {0, 1, 1, 0, 0, 0};
@@ -68,6 +68,19 @@ int main()
 
     std::vector<double> currentPose = {0, 0, 0, 0, 0, 0};
     mission->recurse(currentPose, 0);
+
+    for(int i = 0; i < mission->path_.size(); i++)
+    {
+        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
+    }
+
+    mission->isSucessful(true);
+    currentPose[2] = 3;
+    mission->recurse(currentPose, 0);
+    for(int i = 0; i < mission->path_.size(); i++)
+    {
+        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
+    }
 
 
     return 0;

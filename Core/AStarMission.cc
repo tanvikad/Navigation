@@ -22,14 +22,13 @@ void AStarMission::addGoals(std::vector<std::vector<std::string>> goals)
     goals_.insert(std::end(goals_), std::begin(goals), std::end(goals));
 }
 
-void AStarMission::isSucessful(bool success, std::vector<double> pose)
+void AStarMission::isSucessful(bool success)
 {
     if(success)
     {
         goals_.erase(goals_.begin(), goals_.begin()+1);
         current_ = nullptr;
     }
-    pose_ = pose;
 }
 
 
@@ -40,7 +39,6 @@ std::vector<double> AStarMission::getPose(std::string poseString)
     int index = 0;
     while(true)
     {
-        std::cout<<"index"<<index<<std::endl;
         size_t foundString = poseString.find(' ', index);
         if(foundString == std::string::npos)
         {
@@ -49,15 +47,13 @@ std::vector<double> AStarMission::getPose(std::string poseString)
                 std::string substring = poseString.substr(index, poseString.size());
                 int elem = std::stoi(substring);
                 pose.push_back(elem);
-                std::cout<<elem<<std::endl;
             }
             break;
         }
 
         std::string substring = poseString.substr(index, foundString);
-        int elem = std::stoi(substring);
+        double elem = std::stod(substring);
         pose.push_back(elem);
-        std::cout<<elem<<std::endl;
         index = foundString + 1;
     }
     return pose;

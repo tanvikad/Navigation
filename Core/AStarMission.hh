@@ -1,9 +1,6 @@
-//
-// Created by tanvi on 6/13/2021.
-//
 
-#ifndef NAVIGATION2_ASTARMISSION_HH
-#define NAVIGATION2_ASTARMISSION_HH
+#ifndef NAVIGATION_ASTARMISSION_HH
+#define NAVIGATION_ASTARMISSION_HH
 
 
 #include <vector>
@@ -34,11 +31,11 @@ public:
     AStarMission();
     void addGoals(std::vector<std::vector<std::string>> goals);
 
-    void isSucessful(bool success, std::vector<double> pose);
+    void isSucessful(bool success);
 
     void recurse(std::vector<double> pose, double time);
 
 };
 
 
-#endif //NAVIGATION2_ASTARMISSION_HH
+#endif //NAVIGATION_ASTARMISSION_HH
