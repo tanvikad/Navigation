@@ -6,7 +6,7 @@
  * ex: ["1 1 1 0 pi/2 pi", "goToLocation", "None"]
  * ex: ["buoy_fairy", "goToTarget", "SineTraversalMovement"]
  */
-AStarMission::AStarMission(std::vector<std::vector<std::string>> goals, double velocity, int width, int height, int depth):
+AStarMission::AStarMission(std::vector<std::vector<std::string>> &goals, double velocity, int width, int height, int depth):
         goals_(goals),
         velocity_(velocity),
         current_(nullptr),
@@ -86,3 +86,13 @@ void AStarMission::recurse(std::vector<double> pose, double time)
     }
 }
 
+AStarMission::AStarMission() :
+        goals_(),
+        targets_(),
+        path_(),
+        obstacles_(),
+        current_(nullptr),
+        width_(0)
+{
+
+}

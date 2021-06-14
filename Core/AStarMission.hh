@@ -1,12 +1,15 @@
+//
+// Created by tanvi on 6/13/2021.
+//
 
+#ifndef NAVIGATION2_ASTARMISSION_HH
+#define NAVIGATION2_ASTARMISSION_HH
 
-#ifndef NAVIGATION_ASTARMISSION_HH
-#define NAVIGATION_ASTARMISSION_HH
 
 #include <vector>
 #include <iostream>
 #include <map>
-#include "AStar.cc"
+#include "AStar.hh"
 
 
 class AStarMission
@@ -27,8 +30,8 @@ public:
     std::vector<std::vector<double>> obstacles_;
 
 
-    AStarMission(std::vector<std::vector<std::string>> goals, double velocity, int width, int height, int depth);
-
+    AStarMission(std::vector<std::vector<std::string>> &goals, double velocity, int width, int height, int depth);
+    AStarMission();
     void addGoals(std::vector<std::vector<std::string>> goals);
 
     void isSucessful(bool success, std::vector<double> pose);
@@ -37,4 +40,5 @@ public:
 
 };
 
-#endif //NAVIGATION_ASTARMISSION_HH
+
+#endif //NAVIGATION2_ASTARMISSION_HH

@@ -1,11 +1,10 @@
 #include <iostream>
 #include "AStar.hh"
-#include<queue>
+#include "AStarMission.hh"
 #include<vector>
 #include<functional>
 #include <unordered_set>
-#include <typeinfo>
-#include "AStarMission.hh"
+
 
 
 int main()
@@ -51,6 +50,24 @@ int main()
     createMap->printGrid();
     createMap->solveGrid();
     createMap->printGrid();
+
+    std::vector<std::string> goal1 = {"0 1 7 0.5 0.6 0.7"};
+    std::vector<std::string> goal2 = {"0 2 2 0.5 0.5 0.5"};
+    std::vector<std::vector<std::string>> goals;
+    goals.push_back(goal1);
+    goals.push_back(goal2);
+    AStarMission* mission = new AStarMission();
+
+    std::vector<double> obstacle1 = {0, 5, 5, 0.1, 0.1, 0};
+    std::vector<double> obstacle2 = {0, 1, 1, 0, 0, 0};
+    std::vector<std::vector<double>> obstacles;
+    obstacles.push_back(obstacle1);
+    obstacles.push_back(obstacle2);
+
+    mission->obstacles_ = obstacles;
+
+    std::vector<double> currentPose = {0, 0, 0, 0, 0, 0};
+    mission->recurse(currentPose, 0);
 
 
     return 0;

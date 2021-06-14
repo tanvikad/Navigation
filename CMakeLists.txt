@@ -3,4 +3,4 @@ project(Navigation)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Navigation Core/main.cpp)
+add_executable(Navigation Core/main.cpp Core/AStar.cc Core/AStar.hh Core/AStarMission.cc Core/AStarMission.hh)
