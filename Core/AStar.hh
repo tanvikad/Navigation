@@ -17,8 +17,10 @@ public:
     AStar(int width, int height, int depth);
     void updatePose(int startx, int starty, int startz);
     void solveGrid();
+    void resolveGrid();
     void solveGridDFS();
     void printGrid() const;
+    void addObstacles(std::vector<std::vector<double>> obstacle);
 
 
 
@@ -46,7 +48,7 @@ private:
     void makeGridFromObstacles(std::vector<std::vector<double>>);
     void makeGrid();
 
-    void resolveGrid();
+
     void makeParent(Node *node, std::string value);
     void DFS(int x, int y, int z);
     void addRotation(std::string data);

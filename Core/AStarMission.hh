@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <unordered_set>
 #include "AStar.hh"
 
 
@@ -13,6 +14,7 @@ class AStarMission
 {
 private:
     std::vector<std::vector<std::string>> goals_;
+    std::vector<std::vector<double>> pastObstacles_;
     double velocity_;
     std::vector<double> pose_;
     AStar* current_;

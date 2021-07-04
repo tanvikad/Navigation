@@ -8,6 +8,7 @@
  */
 AStarMission::AStarMission(std::vector<std::vector<std::string>> &goals, double velocity, int width, int height, int depth):
         goals_(goals),
+        pastObstacles_(NULL),
         velocity_(velocity),
         current_(nullptr),
         width_(width),
@@ -65,7 +66,17 @@ void AStarMission::recurse(std::vector<double> pose, double time)
     //If an AStar object is created with the specific goal
     if(current_)
     {
-        current_->updatePose(pose[0], pose[1], pose[2]);
+        if(pastObstacles_ != obstacles_)
+        {
+            pastObstacles_ = obstacles_;
+            current_->addObstacles(obstacles_);
+            current_->updatePose(pose[0], pose[1], pose[2]);
+            current_->solveGrid();
+        }else
+        {
+            current_->updatePose(pose[0], pose[1], pose[2]);
+            current_->resolveGrid();
+        }
         path_ = current_->path_;
     }else
     {
@@ -77,6 +88,7 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         std::string goalString = goals_[0][0];
         std::vector<double> goal = getPose(goalString);
         current_ = new AStar(obstacles_, width_, height_, depth_, pose[0], pose[1], pose[2], goal[0], goal[1], goal[2], AStar::rotationalMotion_::None, "", time, velocity_);
+        pastObstacles_ = obstacles_;
         current_->solveGrid();
         path_ = current_->path_;
     }

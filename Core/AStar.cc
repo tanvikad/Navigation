@@ -366,7 +366,7 @@ void AStar::updatePose(int startx, int starty, int startz)
     std::cout << "Updating pose" << std::endl;
 
     resolveGrid_ += 2;
-    resolveGrid();
+    //resolveGrid();
 }
 
 void AStar::resolveGrid()
@@ -388,6 +388,7 @@ void AStar::resolveGrid()
         {
             break;
         }
+
         now->str_ = std::to_string(resolveGrid_-1);
         int dy[26] = {1, 1, 1, 0, 0, -1, -1, -1, 1, 1, 1, 0, 0, -1, -1, -1, 0, 1, 1, 1, 0, 0, -1, -1, -1, 0};
         int dx[26] = {-1, 0, 1, -1, 1, -1, 0, 1, -1, 0, 1, -1, 1, -1, 0, 1, 0, -1, 0, 1, -1, 1, -1, 0, 1, 0};
@@ -426,6 +427,14 @@ void AStar::resolveGrid()
     std::reverse(path_.begin(),path_.end());
 }
 
+void AStar::addObstacles(std::vector<std::vector<double>> obstacle)
+{
+    for(int i = 0; i < obstacle.size(); i++)
+    {
+        grid_[(int) round(obstacle[i][0])][(int) round(obstacle[i][1])][(int) round(obstacle[i][2])].setObstacle(true);
+    }
+}
+
 
 AStar::Node::Node(int x, int y, int z, AStar::Node *end)
 {
@@ -434,7 +443,7 @@ AStar::Node::Node(int x, int y, int z, AStar::Node *end)
     z_ = z;
     if (end != NULL)
     {
-        
+
         //using manhattan distance
         int dx = abs(x_ - x);
         int dy = abs(y_ - y);
