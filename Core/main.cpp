@@ -12,7 +12,7 @@ int main()
    // 1937331036
 
 
-    std::unordered_set<std::string> set_;
+    /**std::unordered_set<std::string> set_;
     set_.insert("hello");
     set_.insert("bye");
     set_.insert("hello");
@@ -41,15 +41,15 @@ int main()
 
 
     std::vector<std::vector<double>> obstacle;
-    std::vector<double> pose1 {0,1,0.4};
+    std::vector<double> pose1 {0,1,1};
     obstacle.push_back(pose1);
 
-    AStar* createMap = new AStar(obstacle, 1, 3, 3, 0, 0, 0, 0, 2, 2, AStar::rotationalMotion_::None, "", 0, 5);
+    AStar* createMap = new AStar(obstacle, 1, 5, 5, 0, 0, 0, 0, 4, 4, AStar::rotationalMotion_::None, "", 0, 5);
     std::cout<<"hello"<<std::endl;
 
     createMap->printGrid();
     createMap->solveGrid();
-    createMap->printGrid();
+    createMap->printGrid();**/
 
     std::vector<std::string> goal1 = {"0 1 7 0.5 0.6 0.7"};
     std::vector<std::string> goal2 = {"0 2 2 0.5 0.5 0.5"};
@@ -74,9 +74,19 @@ int main()
         std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
     }
 
+    std::vector<double> obstacle3 = {0,0,2};
+    obstacles.push_back(obstacle3);
+    mission->obstacles_ = obstacles;
+    mission->recurse(currentPose, 0.5);
+    for(int i = 0; i < mission->path_.size(); i++)
+    {
+        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
+    }
+
     mission->isSucessful(true);
     currentPose[2] = 3;
-    mission->recurse(currentPose, 0);
+
+    mission->recurse(currentPose, 1);
     for(int i = 0; i < mission->path_.size(); i++)
     {
         std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;

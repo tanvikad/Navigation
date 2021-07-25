@@ -213,6 +213,7 @@ void AStar::printGrid() const
 
 void AStar::solveGrid()
 {
+    std::cout<<"entered solve grid"<<std::endl;
     std::priority_queue<Node> q;
     grid_[startx_][starty_][startz_].g_ = 0;
     grid_[startx_][starty_][startz_].f_ = grid_[startx_][starty_][startz_].g_ + grid_[startx_][starty_][startz_].h_;
@@ -240,12 +241,6 @@ void AStar::solveGrid()
                 0 <= now->z_ + dz[i] && now->z_ + dz[i] < depth_)
             {
                 Node *side = &grid_[now->x_ + dx[i]][now->y_ + dy[i]][now->z_ + dz[i]];
-                if (side->str_ == "3")
-                {
-                    side->parent_ = &grid_[now->x_][now->y_][now->z_];
-                    makeParent(&grid_[endx_][endy_][endz_], "4");
-                    return;
-                }
                 if (side->isObstacle_) continue;
                 if (closed.find(side->id_) != closed.end()) continue;
                 double distance = pow((pow((dx[i]), 2) + pow((dy[i]), 2) + pow((dz[i]), 2)), 0.5);
