@@ -52,8 +52,8 @@ private:
     void makeParent(Node *node, std::string value);
     void DFS(int x, int y, int z);
     void addRotation(std::string data);
-    void addSinTraversal(std::string data);
-    void addTime();
+    void addSinTraversal(std::string data, int amp, int freq, int period);
+    void addTime(int velocity, int factor);
 
 
 
@@ -85,11 +85,8 @@ private:
         template<typename T>
         bool operator()(T *a, T *b) {
             return a->f_ < b->f_;
-            //return true;
         }
 
-        //friend bool operator< (const Node* a, const Node* b){return a.f_ > b.f_;}
-        //friend bool operator> (const Node* a, const Node* b) {return a.f_ < b.f_;}
 
     };
 };

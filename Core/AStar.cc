@@ -348,7 +348,7 @@ void AStar::addSinTraversal(std::string data, int amp, int freq, int period) {
                 int x = (amp*sin((f*y)-h))+k;
                 y_path.push_back(x);
                 y_path.push_back(y);
-                y_path.push_back(path_[0][2])
+                y_path.push_back(path_[0][2]);
                 parab_path.push_back(y_path);
                 y_path.clear();
             }
@@ -366,7 +366,7 @@ void AStar::addSinTraversal(std::string data, int amp, int freq, int period) {
                 int y = (amp*sin((f*y)-h))+k;
                 x_path.push_back(x);
                 x_path.push_back(y);
-                x_path.push_back(path_[0][2])
+                x_path.push_back(path_[0][2]);
                 parab_path.push_back(x_path);
                 x_path.clear();
             }
@@ -394,7 +394,7 @@ void AStar::addSinTraversal(std::string data, int amp, int freq, int period) {
                 int ycoord = (-(x-h)*sin(-a) + (y-k)*cos(-a) + h);
                 d_path.push_back(xcoord);
                 d_path.push_back(ycoord);
-                d_path.push_back(path_[0][2])
+                d_path.push_back(path_[0][2]);
                 parab_path.push_back(d_path);
                 d_path.clear();
             }
