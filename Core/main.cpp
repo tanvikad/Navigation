@@ -92,6 +92,15 @@ int main()
         std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
     }
 
+    //Testing DataString
+    std::string data = "hello hi how are you doing today !";
+    std:: vector<std::string> split = AStar::splitData(data);
+    for(int i = 0; i < split.size(); i++)
+    {
+        std::cout<<i<<' '<<split[i]<<std::endl;
+    }
+
+
 
     return 0;
 }

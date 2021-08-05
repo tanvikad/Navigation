@@ -16,7 +16,7 @@ double  AStar::Node::infinity = std::numeric_limits<double>::infinity();
 
 
 AStar::AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy,
-             int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity) :
+             int endz,  std::string data, double startTime, double velocity) :
         width_(width),
         height_(height),
         depth_(depth),
@@ -27,7 +27,6 @@ AStar::AStar(int width, int height, int depth, double prob, int startx, int star
         endx_(endx),
         endy_(endy),
         endz_(endz),
-        motion_(motion),
         grid_(nullptr),
         distance_(nullptr),
         startTime_(startTime),
@@ -36,28 +35,10 @@ AStar::AStar(int width, int height, int depth, double prob, int startx, int star
 
 {
     makeGrid();
-/*
-    switch (motion)
-    {
-        case None:
-            break;
-        case rotationalMovement:
-            addRotation(data);
-            break;
-        case sinTraversalPath:
-            addSinTraversal(data);
-            break;
-        default:
-            std::cout<<"Error, movement can only be None, rotationalMovement, sinTraversalPath";
-
-    }
-    addTime();
-
-*/
 }
 
 AStar::AStar(int ***map, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
-             AStar::rotationalMotion_ motion, std::string data, double startTime, double velocity):
+              std::string data, double startTime, double velocity):
         width_(width),
         height_(height),
         depth_(depth),
@@ -68,7 +49,6 @@ AStar::AStar(int ***map, int width, int height, int depth, int startx, int start
         endx_(endx),
         endy_(endy),
         endz_(endz),
-        motion_(motion),
         grid_(nullptr),
         distance_(nullptr),
         startTime_(startTime),
@@ -81,7 +61,7 @@ AStar::AStar(int ***map, int width, int height, int depth, int startx, int start
 
 
 AStar::AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
-             AStar::rotationalMotion_ motion, std::string data, double startTime, double velocity):
+              std::string data, double startTime, double velocity):
         width_(width),
         height_(height),
         depth_(depth),
@@ -92,7 +72,6 @@ AStar::AStar(std::vector<std::vector<double>> obstacles, int width, int height, 
         endx_(endx),
         endy_(endy),
         endz_(endz),
-        motion_(motion),
         grid_(nullptr),
         distance_(nullptr),
         startTime_(startTime),
@@ -104,7 +83,7 @@ AStar::AStar(std::vector<std::vector<double>> obstacles, int width, int height, 
 }
 
 AStar::AStar(int width, int height, int depth)
-        : AStar(width, height, depth, 0.3, 0, 0, 0, width - 1, height - 1, depth - 1, sinTraversalPath, "", 0, 5)
+        : AStar(width, height, depth, 0.3, 0, 0, 0, width - 1, height - 1, depth - 1, "", 0, 5)
 {
 }
 
@@ -326,12 +305,47 @@ void AStar::DFS(int x, int y, int z)
     }
 }
 
+void AStar::addMotion(AStar::rotationalMotion_ motion, std::string data)
+{
+    if(motion == AStar::rotationalMotion_::sinTraversalPath)
+    {
+
+        addSinTraversal(0,0,0);
+
+    }
+
+}
+
+std::vector<std::string>  AStar::splitData(std::string data)
+{
+    std::vector<std::string> split;
+    int index = 0;
+    while(true)
+    {
+        size_t foundString = data.find(' ', index);
+        if(foundString == std::string::npos)
+        {
+            if(index <= data.size())
+            {
+                std::string substring = data.substr(index, data.size());
+                split.push_back(substring);
+            }
+            break;
+        }
+
+        std::string substring = data.substr(index, foundString-index);
+        split.push_back(substring);
+        index = foundString + 1;
+    }
+    return split;
+}
+
 void AStar::addRotation(std::string data)
 {
     return;
 }
 
-void AStar::addSinTraversal(std::string data, int amp, int freq, int period) {
+void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need period?
     int h, x = path_[0][0];
     int k, y = path_[0][1];
 
@@ -499,6 +513,8 @@ void AStar::addObstacles(std::vector<std::vector<double>> obstacle)
         grid_[(int) round(obstacle[i][0])][(int) round(obstacle[i][1])][(int) round(obstacle[i][2])].setObstacle(true);
     }
 }
+
+
 
 
 AStar::Node::Node(int x, int y, int z, AStar::Node *end)

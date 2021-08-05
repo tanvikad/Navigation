@@ -52,7 +52,7 @@ std::vector<double> AStarMission::getPose(std::string poseString)
             break;
         }
 
-        std::string substring = poseString.substr(index, foundString);
+        std::string substring = poseString.substr(index, foundString); //TODO: should this be: foundString- index
         double elem = std::stod(substring);
         pose.push_back(elem);
         index = foundString + 1;
@@ -91,7 +91,7 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         }
         std::string goalString = goals_[0][0];
         std::vector<double> goal = getPose(goalString);
-        current_ = new AStar(obstacles_, width_, height_, depth_, pose[0], pose[1], pose[2], goal[0], goal[1], goal[2], AStar::rotationalMotion_::None, "", time, velocity_);
+        current_ = new AStar(obstacles_, width_, height_, depth_, pose[0], pose[1], pose[2], goal[0], goal[1], goal[2], "", time, velocity_);
         current_->printGrid();
         pastObstacles_ = obstacles_;
         current_->solveGrid();

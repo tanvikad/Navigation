@@ -11,9 +11,9 @@ class AStar
 public:
     std::vector<std::vector<double>> path_;
     enum rotationalMotion_ {rotationalMovement, sinTraversalPath, None};
-    AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
-    AStar(int*** map, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
-    AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, rotationalMotion_ motion, std::string data, double startTime, double velocity);
+    AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy, int endz, std::string data, double startTime, double velocity);
+    AStar(int*** map, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, std::string data, double startTime, double velocity);
+    AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz, std::string data, double startTime, double velocity);
     AStar(int width, int height, int depth);
     void updatePose(int startx, int starty, int startz);
     void solveGrid();
@@ -21,6 +21,9 @@ public:
     void solveGridDFS();
     void printGrid() const;
     void addObstacles(std::vector<std::vector<double>> obstacle);
+    void addMotion(rotationalMotion_ motion, std::string data);
+
+    static std::vector<std::string>  splitData(std::string data);
 
 
 
@@ -52,8 +55,10 @@ private:
     void makeParent(Node *node, std::string value);
     void DFS(int x, int y, int z);
     void addRotation(std::string data);
-    void addSinTraversal(std::string data, int amp, int freq, int period);
-    void addTime(int velocity, int factor);
+    void addSinTraversal(int amp, int freq, int period);
+    void addTime(int velocity, int factor); //TODO: Decide between velocity and start time, is factor needed?
+
+
 
 
 
