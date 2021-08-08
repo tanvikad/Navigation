@@ -23,6 +23,7 @@ private:
     int depth_;
 
     std::vector<double> getPose(std::string poseString);
+    void addMotion();
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;
@@ -34,8 +35,8 @@ public:
     void addGoals(std::vector<std::vector<std::string>> goals);
 
     void isSucessful(bool success);
-
     void recurse(std::vector<double> pose, double time);
+    void printPath();
 
 };
 

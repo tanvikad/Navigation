@@ -307,10 +307,14 @@ void AStar::DFS(int x, int y, int z)
 
 void AStar::addMotion(AStar::rotationalMotion_ motion, std::string data)
 {
+    std::vector<std::string> dataList = AStar::splitData(data);
     if(motion == AStar::rotationalMotion_::sinTraversalPath)
     {
 
-        addSinTraversal(0,0,0);
+        addSinTraversal(std::stoi(dataList[0]),std::stoi(dataList[1]),0);
+
+    }else if(motion == AStar::rotationalMovement)
+    {
 
     }
 
@@ -417,10 +421,10 @@ void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need 
     }
 }
 
-void AStar::addTime(int velocity, int factor)
+void AStar::addTime(int factor) //TODO: we take velocity as a instance varaible
 {
     for (int i = 0; i <= path_.size(); i++){
-        int time_stamp = factor*i/velocity;
+        int time_stamp = factor*i/velocity_;
         path_[i].push_back(time_stamp);
     }
 }

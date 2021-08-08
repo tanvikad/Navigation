@@ -2,9 +2,9 @@
 
 
 /*
- * each vector in goals is of size three, with "goal", "linear movement", and "rotational movement"
- * ex: ["1 1 1 0 pi/2 pi", "goToLocation", "None"]
- * ex: ["buoy_fairy", "goToTarget", "SineTraversalMovement"]
+ * each vector in goals is of size three, with "goal", "linear movement", and "rotational movement", data needed
+ * ex: ["1 1 1 0 pi/2 pi", "goToLocation", "None", ""]
+ * ex: ["buoy_fairy", "goToTarget", "SineTraversalMovement", "10 10 0"]
  */
 AStarMission::AStarMission(std::vector<std::vector<std::string>> &goals, double velocity, int width, int height, int depth):
         goals_(goals),
@@ -13,7 +13,10 @@ AStarMission::AStarMission(std::vector<std::vector<std::string>> &goals, double 
         current_(nullptr),
         width_(width),
         height_(height),
-        depth_(depth)
+        depth_(depth),
+        targets_(),
+        path_(),
+        obstacles_()
 {
 
 }
@@ -60,6 +63,32 @@ std::vector<double> AStarMission::getPose(std::string poseString)
     return pose;
 }
 
+void AStarMission::addMotion()
+{
+    if(goals_[0][2] == "None")
+    {
+        current_->addMotion(AStar::None, "");
+    }else if(goals_[0][2] == "SineTraversalMovement")
+    {
+        current_->addMotion(AStar::sinTraversalPath, goals_[0][3]);
+    }else if(goals_[0][2] == "RotationalMovement" )
+    {
+        current_->addMotion(AStar::rotationalMovement, goals_[0][3]);
+    }
+}
+
+void AStarMission::printPath()
+{
+    for(int i = 0; i < path_.size(); i++)
+    {
+        for(int j = 0; j < path_[i].size(); j++)
+        {
+            std::cout<<path_[i][j]<<' ';
+        }
+        std::cout<<std::endl;
+    }
+}
+
 
 void AStarMission::recurse(std::vector<double> pose, double time)
 {
@@ -81,6 +110,8 @@ void AStarMission::recurse(std::vector<double> pose, double time)
             current_->resolveGrid();
             current_->printGrid();
         }
+        addMotion();
+        //current_->addTime(1);
         path_ = current_->path_;
     }else
     {
@@ -96,6 +127,9 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         pastObstacles_ = obstacles_;
         current_->solveGrid();
         current_->printGrid();
+        addMotion();
+        std::cout<<"Added motion"<<std::endl;
+        //current_->addTime(1);
         path_ = current_->path_;
     }
 }

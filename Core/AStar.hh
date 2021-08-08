@@ -22,6 +22,8 @@ public:
     void printGrid() const;
     void addObstacles(std::vector<std::vector<double>> obstacle);
     void addMotion(rotationalMotion_ motion, std::string data);
+    void addTime(int factor); //TODO: Decide between velocity and start time, is factor needed?
+
 
     static std::vector<std::string>  splitData(std::string data);
 
@@ -56,7 +58,6 @@ private:
     void DFS(int x, int y, int z);
     void addRotation(std::string data);
     void addSinTraversal(int amp, int freq, int period);
-    void addTime(int velocity, int factor); //TODO: Decide between velocity and start time, is factor needed?
 
 
 

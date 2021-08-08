@@ -51,8 +51,8 @@ int main()
     createMap->solveGrid();
     createMap->printGrid();**/
 
-    std::vector<std::string> goal1 = {"0 1 7 0.5 0.6 0.7"};
-    std::vector<std::string> goal2 = {"0 2 2 0.5 0.5 0.5"};
+    std::vector<std::string> goal1 = {"0 1 7 0.5 0.6 0.7", "goToLocation", "None", ""};
+    std::vector<std::string> goal2 = {"0 2 2 0.5 0.5 0.5", "SineTraversalMovement", "2 2 0"};
     std::vector<std::vector<std::string>> goals;
     goals.push_back(goal1);
     goals.push_back(goal2);
@@ -68,29 +68,20 @@ int main()
 
     std::vector<double> currentPose = {0, 0, 0, 0, 0, 0};
     mission->recurse(currentPose, 0);
-
-    for(int i = 0; i < mission->path_.size(); i++)
-    {
-        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
-    }
+    mission->printPath();
 
     std::vector<double> obstacle3 = {0,0,2};
     obstacles.push_back(obstacle3);
     mission->obstacles_ = obstacles;
     mission->recurse(currentPose, 0.5);
-    for(int i = 0; i < mission->path_.size(); i++)
-    {
-        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
-    }
+    mission->printPath();
 
     mission->isSucessful(true);
     currentPose[2] = 3;
 
     mission->recurse(currentPose, 1);
-    for(int i = 0; i < mission->path_.size(); i++)
-    {
-        std::cout<<mission->path_[i][0]<<mission->path_[i][1]<<mission->path_[i][2]<<std::endl;
-    }
+    mission->printPath();
+
 
     //Testing DataString
     std::string data = "hello hi how are you doing today !";
