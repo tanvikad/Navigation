@@ -349,7 +349,8 @@ void AStar::addRotation(std::string data)
     return;
 }
 
-void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need period?
+void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need period?, We can make these floats 
+    //path_[0][3] path_[0][4], path_[0][5] (what you would change for rotational)
     int h, x = path_[0][0];
     int k, y = path_[0][1];
 
