@@ -349,22 +349,22 @@ void AStar::addRotation(std::string data)
     return;
 }
 
-void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need period?, We can make these floats 
+void AStar::addSinTraversal(int amp, int freq) {
     //path_[0][3] path_[0][4], path_[0][5] (what you would change for rotational)
-    int h, x = path_[0][0];
-    int k, y = path_[0][1];
+    float h, x = path_[0][0];
+    float k, y = path_[0][1];
 
-    std::vector<std::vector<double>> parab_path;
+    std::vector<std::vector<float>> parab_path;
 
     //y-direction: x=msin(fy-h)+k
     if (path_[0][0] - path_[1][0] == 0) {
-        std::vector<double> y_path;
-        int f = (1 / (path_[0][1] - path_[1][1]) * M_PI);
-        int interval = abs(path_[0][1] - path_[1][1])/freq;
+        std::vector<float> y_path;
+        float f = (1 / (path_[0][1] - path_[1][1]) * M_PI);
+        float interval = abs(path_[0][1] - path_[1][1])/freq;
         for (int i = path_[0][1]; i < (path_[path_.size()-1][1])+1; i++){
             for (int j = 0; j <= freq; j++){
-                int y = y + interval;
-                int x = (amp*sin((f*y)-h))+k;
+                float y = y + interval;
+                float x = (amp*sin((f*y)-h))+k;
                 y_path.push_back(x);
                 y_path.push_back(y);
                 y_path.push_back(path_[0][2]);
@@ -374,15 +374,16 @@ void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need 
         }
 
     }
+
     //x-direction: y=msin(fx-h)+k
     if (path_[0][1] - path_[1][1] == 0) {
-        std::vector<double> x_path;
-        int f = (1 / (path_[1][0] - path_[0][0]) * M_PI);
-        int interval = abs(path_[0][0] - path_[1][0])/freq;
+        std::vector<float> x_path;
+        float f = (1 / (path_[1][0] - path_[0][0]) * M_PI);
+        float interval = abs(path_[0][0] - path_[1][0])/freq;
         for (int i = path_[0][0]; i < (path_[path_.size()-1][0])+1; i++){
             for (int j = 0; j <= freq; j++){
-                int x = x + interval;
-                int y = (amp*sin((f*y)-h))+k;
+                float x = x + interval;
+                float y = (amp*sin((f*y)-h))+k;
                 x_path.push_back(x);
                 x_path.push_back(y);
                 x_path.push_back(path_[0][2]);
@@ -394,23 +395,22 @@ void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need 
     }
 
     //diagonal-direction:
-    if (path_[0][0] - path_[1][0] == 1) {
-        std::vector<double> d_path;
+    if (abs(path_[0][0] - path_[1][0]) == 1) {
+        std::vector<float> d_path;
 
-        int xlength = pow((path_[path_.size()-1][0] - path_[0][0]),2);
-        int ylength = pow((path_[path_.size()-1][1] - path_[0][1]),2);
-        int distance = sqrt(xlength + ylength);
-        //HOW DO I DO THIS PART???
+        float xlength = pow((path_[path_.size()-1][0] - path_[0][0]),2);
+        float ylength = pow((path_[path_.size()-1][1] - path_[0][1]),2);
+        float distance = sqrt(xlength + ylength);
 
-        int f = (1 / (path_[1][0] - path_[0][0]) * M_PI);
-        int a = (M_PI/4);
-        int interval = abs(path_[0][0] - path_[1][0])/freq;
+        float f = (1 / (path_[1][0] - path_[0][0]) * M_PI);
+        float a = (M_PI/4);
+        float interval = abs(path_[0][0] - path_[1][0])/freq;
         for (int i = path_[0][0]; i < path_.size(); i++){
             for (int j = 0; j <= freq; j++){
-                int x = x + interval;
-                int y = (amp*sin((f*y)-h))+k;
-                int xcoord = ((x-h)*cos(-a) + (y-k)*sin(-a) + h);
-                int ycoord = (-(x-h)*sin(-a) + (y-k)*cos(-a) + h);
+                float x = x + interval;
+                float y = (amp*sin((f*y)-h))+k;
+                float xcoord = (((x-h)*cos(-a)) + ((y-k)*sin(-a)) + h);
+                float ycoord = (-((x-h)*sin(-a)) + ((y-k)*cos(-a)) + h);
                 d_path.push_back(xcoord);
                 d_path.push_back(ycoord);
                 d_path.push_back(path_[0][2]);
@@ -422,10 +422,10 @@ void AStar::addSinTraversal(int amp, int freq, int period) { //TODO: Do we need 
     }
 }
 
-void AStar::addTime(int factor) //TODO: we take velocity as a instance varaible
+void AStar::addTime(int factor)
 {
     for (int i = 0; i <= path_.size(); i++){
-        int time_stamp = factor*i/velocity_;
+        float time_stamp = factor*i/velocity_;
         path_[i].push_back(time_stamp);
     }
 }
