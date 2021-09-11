@@ -344,13 +344,35 @@ std::vector<std::string>  AStar::splitData(std::string data)
     return split;
 }
 
-void AStar::addRotation(std::string data)
+void AStar::addRotation(float initial_degree, float degrees_to_rotate, float angular_velocity, float pause_degree, float time)
 {
+    path_[0][3], path_[0][4], path_[0][5] = initial_degree[0], initial_degree[1], initial_degree[2];
+    float d_incrementx = degree_to_rotate[0]/path_.size();
+    float d_incrementy = degree_to_rotate[1]/path_.size();
+    float d_incrementz = degree_to_rotate[2]/path_.size();
+    float pause = pause_degree;
+
+    for (int i = 1; i <= path_.size(); i++){
+
+        path_[i][3] = path_[i-1][3] + d_incrementx;
+        path_[i][4] = path_[i-1][4] + d_incrementy;
+        path_[i][5] = path_[i-1][5] + d_incrementz;
+
+        if (path_[i][3] >= pause){
+            path_[i].push_back(degrees_to_rotate[0]*angular_velocity + time);
+        }
+        else{
+            path_[i].push_back(degrees_to_rotate[0]*angular_velocity);
+        }
+
+    }
+
     return;
 }
 
 void AStar::addSinTraversal(int amp, int freq) {
     //path_[0][3] path_[0][4], path_[0][5] (what you would change for rotational)
+    //roll pitch yaw (xyz) in radians
     float h, x = path_[0][0];
     float k, y = path_[0][1];
 
