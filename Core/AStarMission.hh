@@ -40,5 +40,4 @@ public:
 
 };
 
-
 #endif //NAVIGATION_ASTARMISSION_HH

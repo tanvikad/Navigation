@@ -129,7 +129,6 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         current_->printGrid();
         addMotion();
         std::cout<<"Added motion"<<std::endl;
-        //current_->addTime(1);
         path_ = current_->path_;
     }
 }

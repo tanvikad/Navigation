@@ -24,10 +24,7 @@ public:
     void addMotion(rotationalMotion_ motion, std::string data);
     void addTime(int factor); //TODO: Decide between velocity and start time, is factor needed?
 
-
     static std::vector<std::string>  splitData(std::string data);
-
-
 
 private:
     class Node;

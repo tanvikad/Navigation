@@ -7,14 +7,9 @@
 #include <unordered_set>
 #include <algorithm>
 #include<math.h>
-
-
-
 #include "AStar.hh"
 
 double  AStar::Node::infinity = std::numeric_limits<double>::infinity();
-
-
 AStar::AStar(int width, int height, int depth, double prob, int startx, int starty, int startz, int endx, int endy,
              int endz,  std::string data, double startTime, double velocity) :
         width_(width),
@@ -58,7 +53,6 @@ AStar::AStar(int ***map, int width, int height, int depth, int startx, int start
 {
     makeGridFromMap(map);
 }
-
 
 AStar::AStar(std::vector<std::vector<double>> obstacles, int width, int height, int depth, int startx, int starty, int startz, int endx, int endy, int endz,
               std::string data, double startTime, double velocity):
