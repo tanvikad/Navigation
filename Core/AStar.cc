@@ -338,12 +338,12 @@ std::vector<std::string>  AStar::splitData(std::string data)
     return split;
 }
 
-void AStar::addRotation(float initial_degree, float degrees_to_rotate, float angular_velocity, float pause_degree, float time)
+void AStar::addRotation(std::vector<float> initial_degree, std::vector<float> degrees_to_rotate, float angular_velocity, float pause_degree, float pause_time)
 {
     path_[0][3], path_[0][4], path_[0][5] = initial_degree[0], initial_degree[1], initial_degree[2];
-    float d_incrementx = degree_to_rotate[0]/path_.size();
-    float d_incrementy = degree_to_rotate[1]/path_.size();
-    float d_incrementz = degree_to_rotate[2]/path_.size();
+    float d_incrementx = degrees_to_rotate[0]/path_.size();
+    float d_incrementy = degrees_to_rotate[1]/path_.size();
+    float d_incrementz = degrees_to_rotate[2]/path_.size();
     float pause = pause_degree;
 
     for (int i = 1; i <= path_.size(); i++){
