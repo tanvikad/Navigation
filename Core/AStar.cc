@@ -305,7 +305,7 @@ void AStar::addMotion(AStar::rotationalMotion_ motion, std::string data)
     if(motion == AStar::rotationalMotion_::sinTraversalPath)
     {
 
-        addSinTraversal(std::stoi(dataList[0]),std::stoi(dataList[1]),0);
+        addSinTraversal(std::stoi(dataList[0]),std::stoi(dataList[1]));
 
     }else if(motion == AStar::rotationalMovement)
     {
@@ -353,7 +353,7 @@ void AStar::addRotation(std::vector<float> initial_degree, std::vector<float> de
         path_[i][5] = path_[i-1][5] + d_incrementz;
 
         if (path_[i][3] >= pause){
-            path_[i].push_back(degrees_to_rotate[0]*angular_velocity + time);
+            path_[i].push_back(degrees_to_rotate[0]*angular_velocity + pause_time);
         }
         else{
             path_[i].push_back(degrees_to_rotate[0]*angular_velocity);
