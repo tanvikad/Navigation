@@ -63,17 +63,17 @@ std::vector<double> AStarMission::getPose(std::string poseString)
     return pose;
 }
 
-void AStarMission::addMotion()
+void AStarMission::addMotion(std::vector<double> pose)
 {
     if(goals_[0][2] == "None")
     {
-        current_->addMotion(AStar::None, "");
+        current_->addMotion(AStar::None, pose, "");
     }else if(goals_[0][2] == "SineTraversalMovement")
     {
-        current_->addMotion(AStar::sinTraversalPath, goals_[0][3]);
+        current_->addMotion(AStar::sinTraversalPath, pose, goals_[0][3]);
     }else if(goals_[0][2] == "RotationalMovement" )
     {
-        current_->addMotion(AStar::rotationalMovement, goals_[0][3]);
+        current_->addMotion(AStar::rotationalMovement, pose, goals_[0][3]);
     }
 }
 
@@ -110,12 +110,12 @@ void AStarMission::recurse(std::vector<double> pose, double time)
             current_->resolveGrid();
             current_->printGrid();
         }
-        addMotion();
+        addMotion(pose);
         //current_->addTime(1);
         path_ = current_->path_;
     }else
     {
-        if(goals_.size() == 0)
+        if(goals_.empty())
         {
             std::cout<<"No Mission"<<std::endl;
             return;
@@ -127,7 +127,7 @@ void AStarMission::recurse(std::vector<double> pose, double time)
         pastObstacles_ = obstacles_;
         current_->solveGrid();
         current_->printGrid();
-        addMotion();
+        addMotion(pose);
         std::cout<<"Added motion"<<std::endl;
         path_ = current_->path_;
     }

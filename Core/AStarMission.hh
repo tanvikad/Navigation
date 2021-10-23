@@ -23,7 +23,7 @@ private:
     int depth_;
 
     std::vector<double> getPose(std::string poseString);
-    void addMotion();
+    void addMotion(std::vector<double> pose);
 public:
     std::map<std::string, std::vector<double>> targets_;
     std::vector<std::vector<double>> path_;

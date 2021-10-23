@@ -299,9 +299,13 @@ void AStar::DFS(int x, int y, int z)
     }
 }
 
-void AStar::addMotion(AStar::rotationalMotion_ motion, std::string data)
+void AStar::addMotion(AStar::rotationalMotion_ motion, std::vector<double> pose, std::string data)
 {
-    std::vector<std::string> dataList = AStar::splitData(data);
+    std::vector<std::string> dataList;
+    if(motion != AStar::None)
+    {
+        dataList = AStar::splitData(data);
+    }
     if(motion == AStar::rotationalMotion_::sinTraversalPath)
     {
 
@@ -309,6 +313,13 @@ void AStar::addMotion(AStar::rotationalMotion_ motion, std::string data)
 
     }else if(motion == AStar::rotationalMovement)
     {
+        std::vector<float> initialDegree{static_cast<float>(pose[3]),static_cast<float>(pose[4]), static_cast<float>(pose[5])};
+        std::vector<float> degreesToRotate{ std::stof(dataList[0]), std::stof(dataList[1]), std::stof(dataList[2])};
+        float angularVelocity = std::stof(dataList[3]);
+        float pauseDegree = std::stof(dataList[4]);
+        float pauseTime = std::stof(dataList[5]);
+        addRotation(initialDegree, degreesToRotate, angularVelocity, pauseDegree, pauseTime);
+
 
     }
 
@@ -338,13 +349,13 @@ std::vector<std::string>  AStar::splitData(std::string data)
     return split;
 }
 
-void AStar::addRotation(std::vector<float> initial_degree, std::vector<float> degrees_to_rotate, float angular_velocity, float pause_degree, float pause_time)
+void AStar::addRotation(std::vector<float> initialDegree, std::vector<float> degreesToRotate, float angularVelocity, float pauseDegree, float pauseTime)
 {
-    path_[0][3], path_[0][4], path_[0][5] = initial_degree[0], initial_degree[1], initial_degree[2];
-    float d_incrementx = degrees_to_rotate[0]/path_.size();
-    float d_incrementy = degrees_to_rotate[1]/path_.size();
-    float d_incrementz = degrees_to_rotate[2]/path_.size();
-    float pause = pause_degree;
+    path_[0][3], path_[0][4], path_[0][5] = initialDegree[0], initialDegree[1], initialDegree[2];
+    float d_incrementx = degreesToRotate[0] / path_.size();
+    float d_incrementy = degreesToRotate[1] / path_.size();
+    float d_incrementz = degreesToRotate[2] / path_.size();
+    float pause = pauseDegree;
 
     for (int i = 1; i <= path_.size(); i++){
 
@@ -353,22 +364,22 @@ void AStar::addRotation(std::vector<float> initial_degree, std::vector<float> de
         path_[i][5] = path_[i-1][5] + d_incrementz;
 
         if (path_[i][3] >= pause){
-            path_[i].push_back(degrees_to_rotate[0]*angular_velocity + pause_time);
+            path_[i].push_back(degreesToRotate[0] * angularVelocity + pauseTime);
         }
         else{
-            path_[i].push_back(degrees_to_rotate[0]*angular_velocity);
+            path_[i].push_back(degreesToRotate[0] * angularVelocity);
         }
 
     }
-
-    return;
 }
 
 void AStar::addSinTraversal(int amp, int freq) {
     //path_[0][3] path_[0][4], path_[0][5] (what you would change for rotational)
     //roll pitch yaw (xyz) in radians
-    float h, x = path_[0][0];
-    float k, y = path_[0][1];
+    float h = path_[0][0];
+    float x;
+    float k = path_[0][1];
+    float y = path_[0][1];
 
     std::vector<std::vector<float>> parab_path;
 
@@ -379,8 +390,8 @@ void AStar::addSinTraversal(int amp, int freq) {
         float interval = abs(path_[0][1] - path_[1][1])/freq;
         for (int i = path_[0][1]; i < (path_[path_.size()-1][1])+1; i++){
             for (int j = 0; j <= freq; j++){
-                float y = y + interval;
-                float x = (amp*sin((f*y)-h))+k;
+                y = y + interval;
+                x = (amp*sin((f*y)-h))+k;
                 y_path.push_back(x);
                 y_path.push_back(y);
                 y_path.push_back(path_[0][2]);

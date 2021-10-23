@@ -21,7 +21,7 @@ public:
     void solveGridDFS();
     void printGrid() const;
     void addObstacles(std::vector<std::vector<double>> obstacle);
-    void addMotion(rotationalMotion_ motion, std::string data);
+    void addMotion(rotationalMotion_ motion, std::vector<double> pose, std::string data);
     void addTime(int factor); //TODO: Decide between velocity and start time, is factor needed?
 
     static std::vector<std::string>  splitData(std::string data);
@@ -53,7 +53,7 @@ private:
 
     void makeParent(Node *node, std::string value);
     void DFS(int x, int y, int z);
-    void addRotation(std::vector<float> initial_degree, std::vector<float> degrees_to_rotate, float angular_velocity, float pause_degree, float pause_time);
+    void addRotation(std::vector<float> initialDegree, std::vector<float> degreesToRotate, float angularVelocity, float pauseDegree, float pauseTime);
     void addSinTraversal(int amp, int freq);
 
 
