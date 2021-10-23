@@ -26,7 +26,7 @@ void AStarMission::addGoals(std::vector<std::vector<std::string>> goals)
     goals_.insert(std::end(goals_), std::begin(goals), std::end(goals));
 }
 
-void AStarMission::isSucessful(bool success)
+void AStarMission::isSuccessful(bool success)
 {
     if(success)
     {
@@ -67,13 +67,15 @@ void AStarMission::addMotion(std::vector<double> pose)
 {
     if(goals_[0][2] == "None")
     {
-        current_->addMotion(AStar::None, pose, "");
+        current_->addMotion(AStar::rotationalMotion_::None, pose, "");
     }else if(goals_[0][2] == "SineTraversalMovement")
     {
-        current_->addMotion(AStar::sinTraversalPath, pose, goals_[0][3]);
+        std::cout<<"heello"<<std::endl;
+
+        current_->addMotion(AStar::rotationalMotion_::sinTraversalPath, pose, goals_[0][3]);
     }else if(goals_[0][2] == "RotationalMovement" )
     {
-        current_->addMotion(AStar::rotationalMovement, pose, goals_[0][3]);
+        current_->addMotion(AStar::rotationalMotion_::rotationalMovement, pose, goals_[0][3]);
     }
 }
 

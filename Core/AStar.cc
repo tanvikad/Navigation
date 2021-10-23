@@ -311,7 +311,7 @@ void AStar::addMotion(AStar::rotationalMotion_ motion, std::vector<double> pose,
 
         addSinTraversal(std::stoi(dataList[0]),std::stoi(dataList[1]));
 
-    }else if(motion == AStar::rotationalMovement)
+    }else if(motion == AStar::rotationalMotion_::rotationalMovement)
     {
         std::vector<float> initialDegree{static_cast<float>(pose[3]),static_cast<float>(pose[4]), static_cast<float>(pose[5])};
         std::vector<float> degreesToRotate{ std::stof(dataList[0]), std::stof(dataList[1]), std::stof(dataList[2])};
@@ -374,6 +374,7 @@ void AStar::addRotation(std::vector<float> initialDegree, std::vector<float> deg
 }
 
 void AStar::addSinTraversal(int amp, int freq) {
+    std::cout<<"CAME HERE"<<std::endl;
     //path_[0][3] path_[0][4], path_[0][5] (what you would change for rotational)
     //roll pitch yaw (xyz) in radians
     float h = path_[0][0];
@@ -447,6 +448,8 @@ void AStar::addSinTraversal(int amp, int freq) {
         }
 
     }
+
+    std::cout << "hillo"<<std::endl;
 }
 
 void AStar::addTime(int factor)

@@ -34,7 +34,7 @@ public:
     AStarMission();
     void addGoals(std::vector<std::vector<std::string>> goals);
 
-    void isSucessful(bool success);
+    void isSuccessful(bool success);
     void recurse(std::vector<double> pose, double time);
     void printPath();
 

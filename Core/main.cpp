@@ -32,7 +32,7 @@ int main()
     mission->recurse(currentPose, 0.5);
     mission->printPath();
 
-    mission->isSucessful(true);
+    mission->isSuccessful(true);
     currentPose[2] = 3;
 
     mission->recurse(currentPose, 1);
