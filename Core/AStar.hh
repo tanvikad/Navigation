@@ -53,7 +53,7 @@ private:
 
     void makeParent(Node *node, std::string value);
     void DFS(int x, int y, int z);
-    void addRotation(std::vector<float> initialDegree, std::vector<float> degreesToRotate, float angularVelocity, float pauseDegree, float pauseTime);
+    void addRotation(std::vector<double> initialDegree, std::vector<double> degreesToRotate, double angularVelocity, double pauseDegree, double pauseTime);
     void addSinTraversal(int amp, int freq);
 
 
